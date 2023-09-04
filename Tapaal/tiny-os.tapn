@@ -3,7 +3,7 @@
   <constant name="MT" value="16"/>
   <constant name="DC" value="8"/>
   <net active="true" id="tinyos" type="P/T net">
-    <place displayName="true" id="TaskOnDisk" initialMarking="16" invariant="&lt; inf" name="TaskOnDisk" nameOffsetX="44" nameOffsetY="-8" positionX="469" positionY="131"/>
+    <place displayName="true" id="TaskOnDisk" initialMarking="16" invariant="&lt; inf" name="TaskOnDisk" nameOffsetX="44" nameOffsetY="-8" positionX="463" positionY="126"/>
     <place displayName="true" id="LoadingMem" initialMarking="0" invariant="&lt; inf" name="LoadingMem" nameOffsetX="-8" nameOffsetY="14" positionX="272" positionY="302"/>
     <place displayName="true" id="DiskControllerUnit" initialMarking="8" invariant="&lt; inf" name="DiskControllerUnit" nameOffsetX="57" nameOffsetY="46" positionX="469" positionY="378"/>
     <place displayName="true" id="TransferToDisk" initialMarking="0" invariant="&lt; inf" name="TransferToDisk" nameOffsetX="120" nameOffsetY="18" positionX="683" positionY="265"/>
@@ -21,124 +21,124 @@
     <transition angle="90" displayName="true" id="startNext" infiniteServer="false" name="startNext" nameOffsetX="36" nameOffsetY="1" player="0" positionX="526" positionY="506" priority="0" urgent="false"/>
     <transition angle="90" displayName="true" id="suspend" infiniteServer="false" name="suspend" nameOffsetX="87" nameOffsetY="13" player="0" positionX="687" positionY="610" priority="0" urgent="false"/>
     <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskOnDisk" target="startLoading" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="469" yCoord="147"/>
-      <arcpath arcPointType="false" id="1" xCoord="319" yCoord="156"/>
-      <arcpath arcPointType="false" id="2" xCoord="292" yCoord="212"/>
+      <arcpath arcPointType="false" id="0" xCoord="463" yCoord="142"/>
+      <arcpath arcPointType="false" id="1" xCoord="323" yCoord="160"/>
+      <arcpath arcPointType="false" id="2" xCoord="291" yCoord="211"/>
     </arc>
     <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startLoading" target="LoadingMem" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="287" yCoord="222"/>
-      <arcpath arcPointType="false" id="1" xCoord="287" yCoord="302"/>
+      <arcpath arcPointType="false" id="0" xCoord="286" yCoord="221"/>
+      <arcpath arcPointType="false" id="1" xCoord="286" yCoord="302"/>
     </arc>
     <arc id="A2" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="LoadingMem" target="endLoading" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="288" yCoord="332"/>
-      <arcpath arcPointType="false" id="1" xCoord="292" yCoord="392"/>
+      <arcpath arcPointType="false" id="0" xCoord="287" yCoord="331"/>
+      <arcpath arcPointType="false" id="1" xCoord="291" yCoord="391"/>
     </arc>
     <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endLoading" target="TaskOnDisk" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="296" yCoord="392"/>
-      <arcpath arcPointType="false" id="1" xCoord="475" yCoord="158"/>
+      <arcpath arcPointType="false" id="1" xCoord="469" yCoord="153"/>
     </arc>
     <arc id="A4" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startUnload" target="TransferToDisk" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="702" yCoord="392"/>
-      <arcpath arcPointType="false" id="1" xCoord="698" yCoord="295"/>
+      <arcpath arcPointType="false" id="1" xCoord="698" yCoord="294"/>
     </arc>
     <arc id="A5" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TransferToDisk" target="endUnload" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="697" yCoord="265"/>
-      <arcpath arcPointType="false" id="1" xCoord="694" yCoord="200"/>
+      <arcpath arcPointType="false" id="1" xCoord="693" yCoord="200"/>
     </arc>
     <arc id="A6" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="TaskOnDisk" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="688" yCoord="190"/>
-      <arcpath arcPointType="false" id="1" xCoord="656" yCoord="154"/>
-      <arcpath arcPointType="false" id="2" xCoord="499" yCoord="146"/>
+      <arcpath arcPointType="false" id="0" xCoord="688" yCoord="189"/>
+      <arcpath arcPointType="false" id="1" xCoord="660" yCoord="158"/>
+      <arcpath arcPointType="false" id="2" xCoord="492" yCoord="142"/>
     </arc>
     <arc id="A7" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="DiskControllerUnit" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="684" yCoord="200"/>
-      <arcpath arcPointType="false" id="1" xCoord="495" yCoord="383"/>
+      <arcpath arcPointType="false" id="0" xCoord="683" yCoord="199"/>
+      <arcpath arcPointType="false" id="1" xCoord="494" yCoord="382"/>
     </arc>
     <arc id="A8" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DiskControllerUnit" target="startLoading" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="473" yCoord="383"/>
-      <arcpath arcPointType="false" id="1" xCoord="292" yCoord="222"/>
+      <arcpath arcPointType="false" id="0" xCoord="472" yCoord="382"/>
+      <arcpath arcPointType="false" id="1" xCoord="291" yCoord="221"/>
     </arc>
     <arc id="A9" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endLoading" target="DiskControllerUnit" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="307" yCoord="397"/>
-      <arcpath arcPointType="false" id="1" xCoord="469" yCoord="394"/>
+      <arcpath arcPointType="false" id="0" xCoord="306" yCoord="397"/>
+      <arcpath arcPointType="false" id="1" xCoord="469" yCoord="393"/>
     </arc>
     <arc id="A10" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DiskControllerUnit" target="startUnload" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="499" yCoord="394"/>
-      <arcpath arcPointType="false" id="1" xCoord="683" yCoord="397"/>
+      <arcpath arcPointType="false" id="0" xCoord="498" yCoord="393"/>
+      <arcpath arcPointType="false" id="1" xCoord="682" yCoord="397"/>
     </arc>
     <arc id="A11" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskOnDisk" target="startUnload" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="494" yCoord="157"/>
-      <arcpath arcPointType="false" id="1" xCoord="697" yCoord="392"/>
+      <arcpath arcPointType="false" id="0" xCoord="487" yCoord="152"/>
+      <arcpath arcPointType="false" id="1" xCoord="697" yCoord="391"/>
     </arc>
     <arc id="A12" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endLoading" target="TaskReady" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="292" yCoord="402"/>
-      <arcpath arcPointType="false" id="1" xCoord="294" yCoord="472"/>
+      <arcpath arcPointType="false" id="0" xCoord="291" yCoord="401"/>
+      <arcpath arcPointType="false" id="1" xCoord="293" yCoord="472"/>
     </arc>
     <arc id="A13" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskReady" target="freeMemory" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="279" yCoord="486"/>
-      <arcpath arcPointType="false" id="1" xCoord="118" yCoord="485"/>
-      <arcpath arcPointType="false" id="2" xCoord="120" yCoord="452"/>
+      <arcpath arcPointType="false" id="0" xCoord="279" yCoord="487"/>
+      <arcpath arcPointType="false" id="1" xCoord="122" yCoord="489"/>
+      <arcpath arcPointType="false" id="2" xCoord="119" yCoord="451"/>
     </arc>
     <arc id="A15" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="FreeMemSegment" target="startLoading" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="121" yCoord="256"/>
-      <arcpath arcPointType="false" id="1" xCoord="122" yCoord="219"/>
-      <arcpath arcPointType="false" id="2" xCoord="277" yCoord="217"/>
+      <arcpath arcPointType="false" id="1" xCoord="126" yCoord="223"/>
+      <arcpath arcPointType="false" id="2" xCoord="276" yCoord="217"/>
     </arc>
     <arc id="A16" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskReady" target="startFirst" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="294" yCoord="502"/>
-      <arcpath arcPointType="false" id="1" xCoord="292" yCoord="613"/>
+      <arcpath arcPointType="false" id="0" xCoord="293" yCoord="501"/>
+      <arcpath arcPointType="false" id="1" xCoord="291" yCoord="612"/>
     </arc>
     <arc id="A17" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startFirst" target="ExecutingTask" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="292" yCoord="623"/>
-      <arcpath arcPointType="false" id="1" xCoord="292" yCoord="724"/>
-      <arcpath arcPointType="false" id="2" xCoord="469" yCoord="725"/>
+      <arcpath arcPointType="false" id="0" xCoord="291" yCoord="622"/>
+      <arcpath arcPointType="false" id="1" xCoord="296" yCoord="728"/>
+      <arcpath arcPointType="false" id="2" xCoord="469" yCoord="726"/>
     </arc>
     <arc id="A18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ExecutingTask" target="suspend" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="499" yCoord="726"/>
-      <arcpath arcPointType="false" id="1" xCoord="694" yCoord="727"/>
-      <arcpath arcPointType="false" id="2" xCoord="702" yCoord="630"/>
+      <arcpath arcPointType="false" id="0" xCoord="498" yCoord="726"/>
+      <arcpath arcPointType="false" id="1" xCoord="698" yCoord="731"/>
+      <arcpath arcPointType="false" id="2" xCoord="701" yCoord="629"/>
     </arc>
     <arc id="A19" inscription="1" nameOffsetX="0" nameOffsetY="0" source="suspend" target="TaskSuspended" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="702" yCoord="620"/>
-      <arcpath arcPointType="false" id="1" xCoord="705" yCoord="536"/>
+      <arcpath arcPointType="false" id="0" xCoord="701" yCoord="619"/>
+      <arcpath arcPointType="false" id="1" xCoord="704" yCoord="535"/>
     </arc>
     <arc id="A20" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskSuspended" target="startUnload" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="704" yCoord="506"/>
-      <arcpath arcPointType="false" id="1" xCoord="697" yCoord="402"/>
+      <arcpath arcPointType="false" id="1" xCoord="697" yCoord="401"/>
     </arc>
     <arc id="A21" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskSuspended" target="startNext" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="690" yCoord="522"/>
-      <arcpath arcPointType="false" id="1" xCoord="556" yCoord="522"/>
+      <arcpath arcPointType="false" id="0" xCoord="690" yCoord="521"/>
+      <arcpath arcPointType="false" id="1" xCoord="555" yCoord="521"/>
     </arc>
     <arc id="A22" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startNext" target="ExecutingTask" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="541" yCoord="526"/>
-      <arcpath arcPointType="false" id="1" xCoord="533" yCoord="689"/>
-      <arcpath arcPointType="false" id="2" xCoord="496" yCoord="717"/>
+      <arcpath arcPointType="false" id="0" xCoord="545" yCoord="526"/>
+      <arcpath arcPointType="false" id="1" xCoord="537" yCoord="693"/>
+      <arcpath arcPointType="false" id="2" xCoord="496" yCoord="718"/>
     </arc>
     <arc id="A23" inscription="1" nameOffsetX="0" nameOffsetY="0" source="suspend" target="CPUUnit" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="687" yCoord="625"/>
-      <arcpath arcPointType="false" id="1" xCoord="499" yCoord="618"/>
+      <arcpath arcPointType="false" id="0" xCoord="686" yCoord="625"/>
+      <arcpath arcPointType="false" id="1" xCoord="498" yCoord="618"/>
     </arc>
     <arc id="A24" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="CPUUnit" target="startNext" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="485" yCoord="603"/>
-      <arcpath arcPointType="false" id="1" xCoord="485" yCoord="549"/>
-      <arcpath arcPointType="false" id="2" xCoord="526" yCoord="522"/>
+      <arcpath arcPointType="false" id="1" xCoord="489" yCoord="553"/>
+      <arcpath arcPointType="false" id="2" xCoord="540" yCoord="525"/>
     </arc>
     <arc id="A26" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="TaskReady" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="684" yCoord="200"/>
-      <arcpath arcPointType="false" id="1" xCoord="574" yCoord="485"/>
-      <arcpath arcPointType="false" id="2" xCoord="309" yCoord="486"/>
+      <arcpath arcPointType="false" id="0" xCoord="683" yCoord="199"/>
+      <arcpath arcPointType="false" id="1" xCoord="578" yCoord="489"/>
+      <arcpath arcPointType="false" id="2" xCoord="308" yCoord="487"/>
     </arc>
     <arc id="A27" inscription="1" nameOffsetX="0" nameOffsetY="0" source="freeMemory" target="FreeMemSegment" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="120" yCoord="442"/>
-      <arcpath arcPointType="false" id="1" xCoord="121" yCoord="286"/>
+      <arcpath arcPointType="false" id="0" xCoord="119" yCoord="441"/>
+      <arcpath arcPointType="false" id="1" xCoord="119" yCoord="285"/>
     </arc>
     <arc id="A28" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="CPUUnit" target="startFirst" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="469" yCoord="618"/>
-      <arcpath arcPointType="false" id="1" xCoord="307" yCoord="618"/>
+      <arcpath arcPointType="false" id="1" xCoord="306" yCoord="618"/>
     </arc>
   </net>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="0" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Deadlock" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="0" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="1 - Deadlock free" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
       <all-paths>
         <globally>
@@ -153,30 +153,21 @@
       </all-paths>
     </formula>
   </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Deadlock free - 02" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
-    <formula>
-      <exists-path>
-        <finally>
-          <negation>
-            <exists-path>
-              <next>
-                <true/>
-              </next>
-            </exists-path>
-          </negation>
-        </finally>
-      </exists-path>
-    </formula>
-  </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="0" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Liveness 1 - All transitions occur" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="2 - All transitions will occur" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
       <all-paths>
         <globally>
           <exists-path>
             <finally>
-              <disjunction>
+              <conjunction>
+                <is-fireable>
+                  <transition>tinyos.startLoading</transition>
+                </is-fireable>
                 <is-fireable>
                   <transition>tinyos.endLoading</transition>
+                </is-fireable>
+                <is-fireable>
+                  <transition>tinyos.startUnload</transition>
                 </is-fireable>
                 <is-fireable>
                   <transition>tinyos.endUnload</transition>
@@ -188,36 +179,10 @@
                   <transition>tinyos.startFirst</transition>
                 </is-fireable>
                 <is-fireable>
-                  <transition>tinyos.startLoading</transition>
+                  <transition>tinyos.suspend</transition>
                 </is-fireable>
                 <is-fireable>
                   <transition>tinyos.startNext</transition>
-                </is-fireable>
-                <is-fireable>
-                  <transition>tinyos.startUnload</transition>
-                </is-fireable>
-                <is-fireable>
-                  <transition>tinyos.suspend</transition>
-                </is-fireable>
-              </disjunction>
-            </finally>
-          </exists-path>
-        </globally>
-      </all-paths>
-    </formula>
-  </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Liveness 2 - Tasks will be loaded and unloaded" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
-    <formula>
-      <all-paths>
-        <globally>
-          <exists-path>
-            <finally>
-              <conjunction>
-                <is-fireable>
-                  <transition>tinyos.startLoading</transition>
-                </is-fireable>
-                <is-fireable>
-                  <transition>tinyos.endUnload</transition>
                 </is-fireable>
               </conjunction>
             </finally>
@@ -226,52 +191,32 @@
       </all-paths>
     </formula>
   </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Liveness 3 - Tasks run indefinitely" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="3 - Eventually there will be no tasks on disk" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="true" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
-      <all-paths>
-        <globally>
-          <exists-path>
-            <finally>
-              <is-fireable>
-                <transition>tinyos.startFirst</transition>
-              </is-fireable>
-            </finally>
-          </exists-path>
-        </globally>
-      </all-paths>
+      <exists-path>
+        <finally>
+          <integer-eq>
+            <tokens-count>
+              <place>tinyos.TaskOnDisk</place>
+            </tokens-count>
+            <integer-constant>0</integer-constant>
+          </integer-eq>
+        </finally>
+      </exists-path>
     </formula>
   </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Liveness 4 - CPU Utilization" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="4 - Eventually, all tasks will be executed simutaneouslly" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
-      <all-paths>
-        <globally>
-          <exists-path>
-            <finally>
-              <is-fireable>
-                <transition>tinyos.startNext</transition>
-              </is-fireable>
-            </finally>
-          </exists-path>
-        </globally>
-      </all-paths>
-    </formula>
-  </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Liveness 5 - TaskRead &gt; 0" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
-    <formula>
-      <all-paths>
-        <globally>
-          <exists-path>
-            <finally>
-              <integer-gt>
-                <tokens-count>
-                  <place>tinyos.TaskReady</place>
-                </tokens-count>
-                <integer-constant>0</integer-constant>
-              </integer-gt>
-            </finally>
-          </exists-path>
-        </globally>
-      </all-paths>
+      <exists-path>
+        <finally>
+          <integer-eq>
+            <tokens-count>
+              <place>tinyos.CPUUnit</place>
+            </tokens-count>
+            <integer-constant>0</integer-constant>
+          </integer-eq>
+        </finally>
+      </exists-path>
     </formula>
   </query>
   <k-bound bound="3"/>
