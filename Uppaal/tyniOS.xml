@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>// Constants
+const int N_MT = 64;     // MemorySegments and Tasks
+const int N_DC = 16;     // DiskControllers
+const int N_C  = 32;    // CPUs (cores)
+
+// Types
+typedef int[0, N_MT-1] MT_id_t;    // MemorySegments and Tasks IDs
+typedef int[0, N_DC-1] DC_id_t;    // DiskControllers ID
+typedef int[0, N_C-1]  C_id_t;     // DiskControllers ID
+
+// Channels 
+chan    DC_toMemory,
+        DC_toDisk,
+        DC_unload,
+        T_finished,
+        T_unloaded,
+        T_loaded,
+        T_ready,
+        DC_startLoading;
+        
+
+chan    C_StartTask[N_MT],
+        C_SuspendTask[N_MT],
+        clk_tick[N_MT];
+      
+
+
+// Helper Functions
+
+int task_queue[N_MT];                           // Queue of tasks waiting to execute
+int[0,N_MT] n_tasks_in_queue         = 0;       // Number of tasks in queue
+int[0,N_MT] n_tasks_in_disk          = N_MT;    // Number of tasks in queue
+
+// Put an element at the end of the queue
+void enqueue(MT_id_t task_id)
+{
+    task_queue[n_tasks_in_queue++] = task_id;
+}
+
+// Remove the front element of the queue
+void dequeue()
+{
+    int i = 0;
+    n_tasks_in_queue -= 1;
+    while (i &lt; n_tasks_in_queue)
+    {
+        task_queue[i] = task_queue[i + 1];
+        i++;
+    }
+    task_queue[i] = -1;
+}
+
+// Returns the front element of the queue
+MT_id_t front()
+{
+   return task_queue[0];
+}
+
+// Returns the last element of the queue
+MT_id_t tail()
+{
+   return task_queue[n_tasks_in_queue - 1];
+}</declaration>
+	<template>
+		<name>Task</name>
+		<parameter>const MT_id_t id</parameter>
+		<declaration>const int TET = 6; // Task Execution Time
+
+clock t_run;
+int elapsed_runtime;</declaration>
+		<location id="id0" x="-25" y="-144">
+			<name x="-127" y="-153">TaskOnDisk</name>
+		</location>
+		<location id="id1" x="-25" y="17">
+			<name x="-127" y="9">LoadingMem</name>
+		</location>
+		<location id="id2" x="-25" y="-68">
+			<name x="-144" y="-76">startLoading</name>
+			<committed/>
+		</location>
+		<location id="id3" x="-25" y="93">
+			<name x="-127" y="85">endLoading</name>
+		</location>
+		<location id="id4" x="-25" y="178">
+			<name x="-119" y="170">TaskReady</name>
+		</location>
+		<location id="id5" x="-25" y="289">
+			<name x="-136" y="255">ExecutingTask</name>
+		</location>
+		<location id="id6" x="102" y="382">
+			<name x="34" y="399">SuspendingTask</name>
+			<committed/>
+		</location>
+		<location id="id7" x="-136" y="382">
+			<name x="-255" y="373">startUnload</name>
+		</location>
+		<location id="id8" x="-136" y="476">
+			<name x="-280" y="467">TransferToDisk</name>
+		</location>
+		<location id="id9" x="-136" y="586">
+			<name x="-238" y="578">endUnload</name>
+		</location>
+		<location id="id10" x="306" y="382">
+			<name x="264" y="399">TaskSuspended</name>
+		</location>
+		<init ref="id0"/>
+		<transition id="id11">
+			<source ref="id6"/>
+			<target ref="id10"/>
+			<label kind="guard" x="119" y="340">elapsed_runtime &lt; TET</label>
+			<label kind="assignment" x="119" y="357">enqueue(id)</label>
+		</transition>
+		<transition id="id12">
+			<source ref="id5"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-288" y="289">clk_tick[id] ?</label>
+			<label kind="assignment" x="-288" y="306">elapsed_runtime++</label>
+			<nail x="-144" y="289"/>
+			<nail x="-144" y="331"/>
+		</transition>
+		<transition id="id13">
+			<source ref="id9"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="314" y="586">DC_toMemory ?</label>
+			<nail x="425" y="586"/>
+			<nail x="425" y="93"/>
+		</transition>
+		<transition id="id14">
+			<source ref="id9"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="323" y="646">DC_toDisk ?</label>
+			<label kind="assignment" x="170" y="-170">n_tasks_in_disk++</label>
+			<nail x="-34" y="637"/>
+			<nail x="459" y="637"/>
+			<nail x="459" y="-144"/>
+		</transition>
+		<transition id="id15">
+			<source ref="id8"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="-127" y="518">T_unloaded !</label>
+		</transition>
+		<transition id="id16">
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-127" y="425">DC_unload ?</label>
+		</transition>
+		<transition id="id17">
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-110" y="357">elapsed_runtime &gt;= TET</label>
+			<label kind="synchronisation" x="-110" y="340">T_finished !</label>
+		</transition>
+		<transition id="id18">
+			<source ref="id10"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="178" y="263">C_StartTask[id] ?</label>
+			<nail x="306" y="289"/>
+		</transition>
+		<transition id="id19">
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="34" y="306">C_SuspendTask[id] ?</label>
+		</transition>
+		<transition id="id20">
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-8" y="204">C_StartTask[id] ?</label>
+			<label kind="assignment" x="-8" y="221">elapsed_runtime = 0</label>
+		</transition>
+		<transition id="id21">
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-17" y="119">T_ready !</label>
+			<label kind="assignment" x="-17" y="136">enqueue(id)</label>
+		</transition>
+		<transition id="id22">
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-8" y="42">T_loaded !</label>
+		</transition>
+		<transition id="id23">
+			<source ref="id2"/>
+			<target ref="id1"/>
+		</transition>
+		<transition id="id24">
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-17" y="-127">DC_startLoading ?</label>
+			<label kind="assignment" x="-17" y="-110">n_tasks_in_disk--</label>
+		</transition>
+	</template>
+	<template>
+		<name x="5" y="5">DiskController</name>
+		<parameter>const DC_id_t id</parameter>
+		<declaration>// Place local declarations here.
+
+int current_pid;</declaration>
+		<location id="id25" x="-76" y="-408">
+			<name x="-119" y="-450">Available</name>
+		</location>
+		<location id="id26" x="178" y="-297">
+			<name x="204" y="-306">startUnload</name>
+			<committed/>
+		</location>
+		<location id="id27" x="-340" y="-297">
+			<name x="-467" y="-306">startLoading</name>
+			<committed/>
+		</location>
+		<location id="id28" x="-340" y="-195">
+			<name x="-450" y="-204">endLoading</name>
+			<committed/>
+		</location>
+		<location id="id29" x="178" y="-195">
+			<name x="204" y="-204">endUnload</name>
+			<committed/>
+		</location>
+		<location id="id30" x="178" y="-102">
+			<committed/>
+		</location>
+		<location id="id31" x="-127" y="-195">
+			<committed/>
+		</location>
+		<location id="id32" x="0" y="-195">
+			<committed/>
+		</location>
+		<branchpoint id="id33" x="-68" y="-110"/>
+		<init ref="id25"/>
+		<transition id="id34">
+			<source ref="id32"/>
+			<target ref="id25"/>
+			<label kind="synchronisation" x="8" y="-238">DC_toMemory !</label>
+			<nail x="0" y="-255"/>
+		</transition>
+		<transition id="id35">
+			<source ref="id31"/>
+			<target ref="id25"/>
+			<label kind="synchronisation" x="-119" y="-238">DC_toDisk !</label>
+			<nail x="-127" y="-255"/>
+		</transition>
+		<transition id="id36">
+			<source ref="id33"/>
+			<target ref="id31"/>
+			<label kind="probability" x="-127" y="-153">0.3</label>
+		</transition>
+		<transition id="id37">
+			<source ref="id33"/>
+			<target ref="id32"/>
+			<label kind="probability" x="-34" y="-153">0.7</label>
+		</transition>
+		<transition id="id38" controllable="false">
+			<source ref="id30"/>
+			<target ref="id33"/>
+		</transition>
+		<transition id="id39">
+			<source ref="id29"/>
+			<target ref="id30"/>
+			<label kind="synchronisation" x="187" y="-153">T_unloaded ?</label>
+		</transition>
+		<transition id="id40">
+			<source ref="id26"/>
+			<target ref="id29"/>
+			<label kind="synchronisation" x="187" y="-255">DC_unload !</label>
+		</transition>
+		<transition id="id41">
+			<source ref="id25"/>
+			<target ref="id26"/>
+			<label kind="synchronisation" x="51" y="-391">T_finished ?</label>
+		</transition>
+		<transition id="id42">
+			<source ref="id28"/>
+			<target ref="id25"/>
+			<nail x="-272" y="-195"/>
+		</transition>
+		<transition id="id43">
+			<source ref="id27"/>
+			<target ref="id28"/>
+			<label kind="synchronisation" x="-433" y="-255">T_loaded ?</label>
+		</transition>
+		<transition id="id44">
+			<source ref="id25"/>
+			<target ref="id27"/>
+			<label kind="guard" x="-306" y="-408">n_tasks_in_disk &gt; 0</label>
+			<label kind="synchronisation" x="-306" y="-391">DC_startLoading !</label>
+		</transition>
+	</template>
+	<template>
+		<name>CPU</name>
+		<parameter>const C_id_t id</parameter>
+		<declaration>const int quantum = 2;
+int elapsed_quantum = 0;
+
+int current_pid;
+clock t_run;
+</declaration>
+		<location id="id45" x="-340" y="-433">
+			<name x="-357" y="-467">Idle</name>
+		</location>
+		<location id="id46" x="-340" y="-315">
+			<name x="-468" y="-323">StartingFirst</name>
+		</location>
+		<location id="id47" x="-340" y="-187">
+			<name x="-416" y="-221">Running</name>
+		</location>
+		<location id="id48" x="-340" y="-59">
+			<name x="-467" y="-68">StartingNext</name>
+			<committed/>
+		</location>
+		<location id="id49" x="-340" y="85">
+		</location>
+		<init ref="id45"/>
+		<transition id="id50">
+			<source ref="id47"/>
+			<target ref="id47"/>
+			<label kind="guard" x="-595" y="-187">t_run &gt;= 1</label>
+			<label kind="synchronisation" x="-595" y="-127">clk_tick[current_pid] !</label>
+			<label kind="assignment" x="-595" y="-170">t_run = 0,
+elapsed_quantum++</label>
+			<nail x="-442" y="-187"/>
+			<nail x="-442" y="-136"/>
+		</transition>
+		<transition id="id51">
+			<source ref="id49"/>
+			<target ref="id47"/>
+			<label kind="synchronisation" x="-306" y="93">C_StartTask[current_pid] !</label>
+			<label kind="assignment" x="-306" y="110">t_run = 0,
+elapsed_quantum = 0</label>
+			<nail x="0" y="85"/>
+			<nail x="0" y="-187"/>
+		</transition>
+		<transition id="id52">
+			<source ref="id48"/>
+			<target ref="id49"/>
+			<label kind="guard" x="-331" y="0">n_tasks_in_queue &gt;= 1</label>
+			<label kind="assignment" x="-331" y="17">current_pid = front(),
+dequeue()</label>
+		</transition>
+		<transition id="id53">
+			<source ref="id48"/>
+			<target ref="id45"/>
+			<label kind="guard" x="-238" y="-59">n_tasks_in_queue == 0</label>
+			<nail x="34" y="-59"/>
+			<nail x="34" y="-433"/>
+		</transition>
+		<transition id="id54">
+			<source ref="id47"/>
+			<target ref="id48"/>
+			<label kind="guard" x="-331" y="-136">elapsed_quantum &gt;= quantum</label>
+			<label kind="synchronisation" x="-331" y="-119">C_SuspendTask[current_pid] !</label>
+		</transition>
+		<transition id="id55">
+			<source ref="id46"/>
+			<target ref="id47"/>
+			<label kind="synchronisation" x="-331" y="-272">C_StartTask[current_pid] !</label>
+			<label kind="assignment" x="-331" y="-255">t_run = 0,
+elapsed_quantum = 0</label>
+		</transition>
+		<transition id="id56">
+			<source ref="id45"/>
+			<target ref="id46"/>
+			<label kind="synchronisation" x="-331" y="-399">T_ready ?</label>
+			<label kind="assignment" x="-331" y="-382">current_pid = front(),
+dequeue()</label>
+		</transition>
+	</template>
+	<system>system Task, DiskController, CPU;
+</system>
+	<queries>
+		<query>
+			<formula/>
+			<comment/>
+		</query>
+	</queries>
+</nta>
