@@ -7,7 +7,7 @@ Este projeto tem como base a rede de Petry a seguir:
 
 O objetivo do projeto e escrever um modelo correspondente ao do problema em uma ferramenta e elaborar propriedades de safety e liveness
 
-## Desenolvimento
+## Desenvolvimento
 
 O problema foi modelado em dois programas diferentes: Uppaal e Tapaal.
 
