@@ -11,7 +11,7 @@ O objetivo do projeto e escrever um modelo correspondente ao do problema em uma 
 
 O problema foi modelado em dois programas diferentes: Uppaal e Tapaal.
 
-O Uppaal....
+No Uppaal, a modelagem foi realizada utilizando 3 templates de processos: tarefas, controladores de disco e CPUs. Levando em consideração o tempo e recurso computacional necessários para realizar a verificação das proposições, o sistema foi modelado também no Tappaal.
 
 O Tapaal permite modelar sistemas usando redes de Petry, o que facilitou bastante o trabalho, visto que o problema foi propposto usando rede de Petry
 
