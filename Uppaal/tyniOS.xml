@@ -8,8 +8,8 @@ const int N_C  = 32;    // CPUs (cores)
 
 // Types
 typedef int[0, N_MT-1] MT_id_t;    // MemorySegments and Tasks IDs
-typedef int[0, N_DC-1] DC_id_t;    // DiskControllers ID
-typedef int[0, N_C-1]  C_id_t;     // DiskControllers ID
+typedef int[0, N_DC-1] DC_id_t;    // DiskControllers IDs
+typedef int[0, N_C-1]  C_id_t;     // CPUs IDs
 
 // Channels 
 chan    DC_toMemory,
